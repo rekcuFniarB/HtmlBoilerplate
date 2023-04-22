@@ -70,4 +70,4 @@ Same result will be if this script is applied on `.md` file.
 Why
 ---
 
-In the past I kept local notes for myself in `.md` files but they needed special viewer or converting to html. Instead I can just write markdown inside portable html files which can be viewed anywhere with no extra software required.
+In the past I kept local notes for myself in `.md` files but they needed special viewer or converting to html. Instead I can just embed markdown inside portable html files which can be viewed anywhere with no extra software required. Next time I just edit these html's directly with no source `.md` required.
