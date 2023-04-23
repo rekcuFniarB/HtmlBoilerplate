@@ -127,6 +127,7 @@ elif [ _"$TITLE" != _"$BASENAME" ]; then
     <title>$TITLE</title>
     <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/water.css/out/water.css\">
     <!-- Other css alternatives: https://css-tricks.com/no-class-css-frameworks/ -->
+    <meta name=\"generator\" content=\"https://github.com/rekcuFniarB/HtmlBoilerplate#readme\">
   </head>
   <body>
     <main>
