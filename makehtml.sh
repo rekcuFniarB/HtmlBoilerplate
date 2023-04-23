@@ -73,15 +73,14 @@ MDSCRIPTS="<script src=\"https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-
 <script type=\"text/javascript\">
     if (window.markdownit) {
         const mdit = new markdownit({html: true, linkify: true, typographer: true});
-        for (let mdcode of document.querySelectorAll('code.markdown>pre,script[type=\"text/markdown\"]')) {
+        for (let mdcode of document.querySelectorAll('code.markdown,script[type=\"text/markdown\"]')) {
             if (!mdcode.mdRenderedContent) {
                 mdcode.mdRenderedContent = document.createElement('section');
             }
             mdcode.mdRenderedContent.classList.add('markdown-rendered-content');
-            mdcode.mdRenderedContent.innerHTML = mdit.render(mdcode.innerText);
-            let wrapper = mdcode.closest('code') || mdcode;
-            wrapper.parentElement.insertBefore(mdcode.mdRenderedContent, wrapper);
-            wrapper.style.display = 'none';
+            mdcode.mdRenderedContent.innerHTML = mdit.render(mdcode.textContent);
+            mdcode.parentElement.insertBefore(mdcode.mdRenderedContent, mdcode);
+            mdcode.style.display = 'none';
             for (let link of mdcode.mdRenderedContent.querySelectorAll('a')) {
                 if (link.hostname && link.hostname != document.location.hostname) {
                     if (!link.target) {
@@ -95,7 +94,7 @@ MDSCRIPTS="<script src=\"https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-
         }
         let h1 = document.querySelector('h1');
         if (h1) {
-            document.title = h1.innerText;
+            document.title = h1.textContent;
         }
     }
 </script>"
@@ -105,11 +104,9 @@ if [ "${FILE%%.md}" != "$FILE" ]; then
     ## We use https://github.com/markdown-it/markdown-it#readme for converting to html
     fn_check_file "$FILE"
     CONTENT="$(cat "$FILE")"
-    echo "<main>
-    <code class=\"markdown\"><pre>
+    echo "<code class=\"markdown\"><pre>
 $CONTENT
-    </pre></code>
-</main>" > "$FILE.html"
+    </pre></code>" > "$FILE.html"
     ## Running self on new html file
     exec "$0" "$FILE.html"
 elif [ _"$TITLE" != _"$BASENAME" ]; then
