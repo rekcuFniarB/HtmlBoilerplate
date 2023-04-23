@@ -66,6 +66,8 @@ Some list
 
 Same result will be if this script is applied on `.md` file.
 
+[Demo page](https://cloudflare-ipfs.com/ipfs/QmS3x2REviHhvPrKxVQuExdKjnutYY8GBN46Lt21CJxZud/embedded-markdown-example/)
+
 
 Why
 ---
