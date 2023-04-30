@@ -58,6 +58,21 @@ fn_check_file() {
     fi
 }
 
+fn_is_img() {
+    local NAME
+    local ext
+    NAME="$1"
+    if [ -z "$NAME" ]; then
+        return 1
+    fi
+    for ext in jpg jpeg png gif webm svg JPG JPEG PNG GIF WEBM SVG; do
+        if [ _$NAME != _"${NAME%%.$ext}" ]; then
+            echo -n "$NAME"
+            return 0
+        fi
+    done
+}
+
 FILE="$1"
 
 if [ -z "$FILE" -o "$FILE" = '-h' -o _"$FILE" = '--help' ]; then
@@ -120,6 +135,53 @@ elif [ _"$TITLE" != _"$BASENAME" ]; then
         if [ -n "$(echo -n "$CONTENT" | grep ' class="markdown"\| type="text/markdown"')" ]; then
             SCRIPTS="$MDSCRIPTS"
         fi
+        
+        DIR="$(dirname "$FILE")"
+        export FILE
+        
+        ## Generating list of links and imgs from parent directory
+        
+        IMGS="$(ls "$DIR" | while read F; do
+            FILE="$(basename "$FILE")"
+            if [ _"$F" != _"$FILE" ]; then
+                IMGNAME="$(fn_is_img "$F")"
+                if [ -n "$IMGNAME" ]; then
+                    ## Is img
+                    echo "<figure>
+                        <img src=\"$F\" alt=\"$IMGNAME\">
+                        <figcaption><a href=\"$F\">$IMGNAME</a></figcaption>
+                    </figure>"
+                fi
+            fi
+        done)"
+        
+        LINKS="$(ls "$DIR" | while read F; do
+            FILE="$(basename "$FILE")"
+            if [ _"$F" != _"$FILE" ]; then
+                IMGNAME="$(fn_is_img "$F")"
+                if [ -z "$IMGNAME" ]; then
+                    ## Is regular file
+                    echo "<li><a href=\"$F\">$(basename "$F")</a></li>"
+                fi
+            fi
+        done)"
+        
+        if [ -n "$LINKS" ]; then
+            CONTENT="$CONTENT
+            <section class=\"links\">
+            <ul>
+            $LINKS
+            </ul>
+            </section>"
+        fi
+        
+        if [ -n "$IMGS" ]; then
+            CONTENT="$CONTENT
+            <section class=\"pictures\">
+            $IMGS
+            </section>"
+        fi
+        
         echo "<!DOCTYPE html>
 <html>
   <head>
@@ -141,3 +203,6 @@ elif [ _"$TITLE" != _"$BASENAME" ]; then
         errlog "File $FILE already processed."
     fi
 fi
+
+
+
