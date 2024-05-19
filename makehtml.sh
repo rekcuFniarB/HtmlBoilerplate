@@ -84,8 +84,8 @@ fi
 BASENAME="$(basename "$FILE")"
 TITLE="${BASENAME%%.html}"
 
-## Alt src: https://ipfs.io/ipfs/QmRSWamS6ccdqubPdgjYPpfCVLw7h1ccQpDvSTgizpNbo8/markdown-it-init.js
-MDSCRIPTS="<script src=\"https://bafybeibocnnv53gvyse2wrn2pohbazdiyqqlq3cledoxgchjpoeger6g2m.ipfs.dweb.link/markdown-it-init.js\" type=\"text/javascript\"></script>
+## Alt static dir: https://ipfs.io/ipfs/QmVvQHYM9KXqZGwFB2bPbZ7NQ4mVoZsp5K46zEksz1jHtZ/
+MDSCRIPTS="<script src=\"https://bafybeidqu47uwxhuasyjio4hwwl7r7npwv5qyevd5tjt5fjrxxt6t5sydy.ipfs.dweb.link/markdown-it-init.js\" type=\"text/javascript\"></script>
 "
 
 if [ "${FILE%%.md}" != "$FILE" ]; then
@@ -161,7 +161,8 @@ elif [ _"$TITLE" != _"$BASENAME" ]; then
   <head>
     <meta charset=\"UTF-8\">
     <title>$TITLE</title>
-    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/water.css/out/water.css\">
+    <!--<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/water.css/out/water.css\">-->
+    <link rel=\"stylesheet\" href=\"https://bafybeidqu47uwxhuasyjio4hwwl7r7npwv5qyevd5tjt5fjrxxt6t5sydy.ipfs.dweb.link/water.min.css\">
     <!-- Other css alternatives: https://css-tricks.com/no-class-css-frameworks/ -->
     <meta name=\"generator\" content=\"https://github.com/rekcuFniarB/HtmlBoilerplate#readme\">
   </head>
