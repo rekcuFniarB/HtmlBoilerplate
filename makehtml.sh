@@ -65,7 +65,7 @@ fn_is_img() {
     if [ -z "$NAME" ]; then
         return 1
     fi
-    for ext in jpg jpeg png gif webm svg JPG JPEG PNG GIF WEBM SVG; do
+    for ext in jpg jpeg png gif webp svg JPG JPEG PNG GIF WEBP SVG; do
         if [ _$NAME != _"${NAME%%.$ext}" ]; then
             echo -n "$NAME"
             return 0
@@ -84,44 +84,18 @@ fi
 BASENAME="$(basename "$FILE")"
 TITLE="${BASENAME%%.html}"
 
-MDSCRIPTS="<script src=\"https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js\" type=\"text/javascript\"></script>
-<script type=\"text/javascript\">
-    if (window.markdownit) {
-        const mdit = new markdownit({html: true, linkify: true, typographer: true});
-        for (let mdcode of document.querySelectorAll('code.markdown,script[type=\"text/markdown\"]')) {
-            if (!mdcode.mdRenderedContent) {
-                mdcode.mdRenderedContent = document.createElement('section');
-            }
-            mdcode.mdRenderedContent.classList.add('markdown-rendered-content');
-            mdcode.mdRenderedContent.innerHTML = mdit.render(mdcode.textContent);
-            mdcode.parentElement.insertBefore(mdcode.mdRenderedContent, mdcode);
-            mdcode.style.display = 'none';
-            for (let link of mdcode.mdRenderedContent.querySelectorAll('a')) {
-                if (link.hostname && link.hostname != document.location.hostname) {
-                    if (!link.target) {
-                        link.target = '_blank';
-                    }
-                    if (!link.rel) {
-                        link.rel = 'noopener';
-                    }
-                }
-            }
-        }
-        let h1 = document.querySelector('h1');
-        if (h1) {
-            document.title = h1.textContent;
-        }
-    }
-</script>"
+## Alt src: https://ipfs.io/ipfs/QmRSWamS6ccdqubPdgjYPpfCVLw7h1ccQpDvSTgizpNbo8/markdown-it-init.js
+MDSCRIPTS="<script src=\"https://bafybeibocnnv53gvyse2wrn2pohbazdiyqqlq3cledoxgchjpoeger6g2m.ipfs.dweb.link/markdown-it-init.js\" type=\"text/javascript\"></script>
+"
 
 if [ "${FILE%%.md}" != "$FILE" ]; then
     ## Has .md extension
-    ## We use https://github.com/markdown-it/markdown-it#readme for converting to html
+    ## We use https://github.com/markdown-it/markdown-it#readme for rendering to html
     fn_check_file "$FILE"
     CONTENT="$(cat "$FILE")"
-    echo "<code class=\"markdown\"><pre>
+    echo "<pre><code class=\"markdown\">
 $CONTENT
-    </pre></code>" > "$FILE.html"
+    </code></pre>" > "$FILE.html"
     ## Running self on new html file
     exec "$0" "$FILE.html"
 elif [ _"$TITLE" != _"$BASENAME" ]; then
