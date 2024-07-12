@@ -66,10 +66,12 @@ Some list
 
 Same result will be if this script is applied on `.md` file.
 
-[Demo page](https://cloudflare-ipfs.com/ipfs/QmS3x2REviHhvPrKxVQuExdKjnutYY8GBN46Lt21CJxZud/embedded-markdown-example/)
+[Demo page](https://ipfs.io/ipfs/QmS3x2REviHhvPrKxVQuExdKjnutYY8GBN46Lt21CJxZud/embedded-markdown-example/)
 
 
 Why
 ---
 
 In the past I kept local notes for myself in `.md` files but they needed special viewer or converting to html. Instead I can just embed markdown inside portable html files which can be viewed anywhere with no extra software required. Next time I just edit these html's directly with no source `.md` required.
+
+Project page: https://github.com/rekcuFniarB/HtmlBoilerplate#readme

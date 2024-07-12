@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+// https://github.com/rekcuFniarB/HtmlBoilerplate#readme
+
 (function init() {
     if (!init.scriptDir) {
         let pathParts = document.currentScript.src.split('/');
@@ -33,6 +35,8 @@
         script.src = init.mdScriptSrc;
         script.type = 'text/javascript';
         script.init = init;
+        script.integrity = 'wLhprpjsmjc/XYIcF+LpMxd8yS1gss6jhevOp6F6zhiIoFK6AmHtm4bGKtehTani';
+        script.crossOrigin = 'anonymous';
         document.body.appendChild(script);
         window.addEventListener('load', init);
     }
